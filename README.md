@@ -19,6 +19,7 @@ $ git reset --hard # to revert change to project-config.jam
 $ ./b2 --link=static --ignore-site-config --with-program_options --threading=multi
 #                                                ^--------------
 # change the -with option above to suit your needs
+```
 
 To use in a cmake project:
 
