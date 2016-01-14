@@ -154,7 +154,7 @@ rule init ( version ? : command * : options * )
     # Information about the gcc command...
     #   The command.
     local command = $(tool-command) ;
-    #   The 'command' variable can have multiple elements but when calling the    
+    #   The 'command' variable can have multiple elements but when calling the
     # SHELL builtin we need a single string, and we need to quote elements
     # with spaces.
     local command-string = \"$(command)\" ;
@@ -235,26 +235,14 @@ rule init ( version ? : command * : options * )
 " ;
 
     # - Archive builder.
-    local archiver = [ common.get-invocation-command gcc
-        : [ NORMALIZE_PATH [ MATCH "(.*)[$(nl)]+" :
-            [ SHELL "$(command-string) -print-prog-name=ar" ] ] ]
-        : [ feature.get-values <archiver> : $(options) ]
-        : $(bin)
-        : search-path ] ;
-    toolset.flags gcc.archive .AR $(condition) : $(archiver[1]) ;
+    toolset.flags gcc.archive .AR $(condition) : "/home/bpowers/src/emscripten/emar" ;
     if $(.debug-configuration)
     {
         ECHO notice: using gcc archiver :: $(condition) :: $(archiver[1]) ;
     }
 
     # - Ranlib.
-    local ranlib = [ common.get-invocation-command gcc
-        : [ NORMALIZE_PATH [ MATCH "(.*)[$(nl)]+" :
-            [ SHELL "$(command-string) -print-prog-name=ranlib" ] ] ]
-        : [ feature.get-values <ranlib> : $(options) ]
-        : $(bin)
-        : search-path ] ;
-    toolset.flags gcc.archive .RANLIB $(condition) : $(ranlib[1]) ;
+    toolset.flags gcc.archive .RANLIB $(condition) : "/home/bpowers/src/emscripten/emranlib" ;
     if $(.debug-configuration)
     {
         ECHO notice: using gcc ranlib :: $(condition) :: $(ranlib[1]) ;
